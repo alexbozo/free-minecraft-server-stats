@@ -9168,5 +9168,10 @@
     "time": "2026-02-14T12:31:12.890Z",
     "online": true,
     "players": 1
+  },
+  {
+    "time": "2026-02-14T13:30:44.903Z",
+    "online": true,
+    "players": 2
   }
 ]
