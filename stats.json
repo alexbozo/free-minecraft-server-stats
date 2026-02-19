@@ -9958,5 +9958,10 @@
     "time": "2026-02-19T19:28:03.771Z",
     "online": true,
     "players": 4
+  },
+  {
+    "time": "2026-02-19T19:58:00.744Z",
+    "online": false,
+    "players": 0
   }
 ]
