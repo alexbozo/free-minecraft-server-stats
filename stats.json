@@ -10233,5 +10233,10 @@
     "time": "2026-02-21T11:42:31.604Z",
     "online": true,
     "players": 1
+  },
+  {
+    "time": "2026-02-21T11:54:20.456Z",
+    "online": false,
+    "players": 0
   }
 ]
