@@ -24,6 +24,14 @@
 
     <h1>Server Dashboard</h1>
 
+    <div id="statusSummary" style="display:flex;align-items:center;gap:18px;margin-bottom:18px;font-family:sans-serif;">
+        <span style="font-size:0.95em;color:#555;">Last check:</span>
+        <span id="lastStatusBadge"
+            style="padding:4px 14px;border-radius:20px;font-weight:bold;font-size:0.95em;background:#ccc;color:#fff;">—</span>
+        <span style="font-size:0.95em;color:#555;">Uptime (selected range):</span>
+        <span id="uptimePct" style="font-weight:bold;font-size:0.95em;color:#2c3e50;">—</span>
+    </div>
+
     <div class="chart-container">
         <h3>Player Count</h3>
         <canvas id="playerChart"></canvas>
@@ -123,6 +131,22 @@
                 document.getElementById('endDateLabel').textContent = fmt(allStatsData[endIdx].time);
             }
 
+            function updateStatusSummary(filteredData) {
+                const badge = document.getElementById('lastStatusBadge');
+                const pctEl = document.getElementById('uptimePct');
+                if (!filteredData.length) {
+                    badge.textContent = '—';
+                    pctEl.textContent = '—';
+                    return;
+                }
+                const last = allStatsData[allStatsData.length - 1];
+                badge.textContent = last.online ? 'ONLINE' : 'OFFLINE';
+                badge.style.background = last.online ? '#2ecc71' : '#e74c3c';
+                const onlineCount = filteredData.filter(e => e.online).length;
+                const pct = ((onlineCount / filteredData.length) * 100).toFixed(1);
+                pctEl.textContent = pct + '%';
+            }
+
             function updateCharts(values) {
                 const start = parseInt(values[0]);
                 const end = parseInt(values[1]);
@@ -130,6 +154,8 @@
                 updateDateLabels(start, end);
 
                 const filteredData = allStatsData.slice(start, end + 1);
+
+                updateStatusSummary(filteredData);
 
                 const labels = filteredData.map(entry => {
                     return new Date(entry.time).toLocaleString([], {
