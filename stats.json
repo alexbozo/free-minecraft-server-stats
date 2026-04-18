@@ -18003,5 +18003,10 @@
     "time": "2026-04-18T19:35:49.353Z",
     "online": true,
     "players": 0
+  },
+  {
+    "time": "2026-04-18T20:04:50.518Z",
+    "online": false,
+    "players": 0
   }
 ]
