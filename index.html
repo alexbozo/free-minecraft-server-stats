@@ -110,23 +110,28 @@
             const sliderElement = document.getElementById('timeRangeSlider');
             const totalPoints = allStatsData.length;
 
-            noUiSlider.create(sliderElement, {
-                start: [0, totalPoints - 1],
-                connect: true,
-                range: {
-                    'min': 0,
-                    'max': totalPoints - 1
-                },
-                step: 1,
-                format: {
-                    to: function (value) {
-                        return parseInt(value);
+            if (totalPoints > 1) {
+                noUiSlider.create(sliderElement, {
+                    start: [0, totalPoints - 1],
+                    connect: true,
+                    range: {
+                        'min': 0,
+                        'max': totalPoints - 1
                     },
-                    from: function (value) {
-                        return parseInt(value);
+                    step: 1,
+                    format: {
+                        to: function (value) {
+                            return parseInt(value);
+                        },
+                        from: function (value) {
+                            return parseInt(value);
+                        }
                     }
-                }
-            });
+                });
+            } else {
+                // Hide slider controls container since range filtering isn't needed yet
+                document.querySelector('.controls-container').style.display = 'none';
+            }
 
             function updateDateLabels(startIdx, endIdx) {
                 if (!allStatsData[startIdx] || !allStatsData[endIdx]) return;
@@ -257,9 +262,13 @@
                 }
             }
 
-            sliderElement.noUiSlider.on('update', function (values, handle) {
-                updateCharts(values);
-            });
+            if (totalPoints > 1) {
+                sliderElement.noUiSlider.on('update', function (values, handle) {
+                    updateCharts(values);
+                });
+            } else if (totalPoints === 1) {
+                updateCharts([0, 0]);
+            }
         }
 
         loadDashboard();
