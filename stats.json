@@ -538,5 +538,10 @@
     "time": "2026-07-03T11:11:38.078Z",
     "online": true,
     "players": 1
+  },
+  {
+    "time": "2026-07-03T13:14:27.729Z",
+    "online": true,
+    "players": 0
   }
 ]
